@@ -1,0 +1,57 @@
+-- the number of customer and total revenue per each City branches 
+select
+City,
+count(*) as num_of_sales,
+sum(Total) as total_revenue
+from `rugged-courier-418011.supermarket.sales_data` 
+group by City
+order by City
+-- the number of customer and total revenue per each customer type
+select
+Customer_type,
+count(*) as num_of_sales,
+sum(Total) as total_revenue
+from `rugged-courier-418011.supermarket.sales_data` 
+group by Customer_type
+-- the number of customer and total revenue per Gender 
+select
+Gender,
+count(*) as num_of_sales,
+sum(Total) as total_revenue
+from `rugged-courier-418011.supermarket.sales_data` 
+group by Gender
+-- the number of member customers per gender 
+select 
+Gender,
+count(*) as num_of_members
+from `rugged-courier-418011.supermarket.sales_data` 
+where Customer_type = 'Member'
+group by Gender 
+order by num_of_members desc  
+-- the sum of quantity and total revenue per each product line 
+select
+Product_line,
+sum(Quantity) as sum_of_quantity,
+sum(Total) as total_revenue 
+from `rugged-courier-418011.supermarket.sales_data` 
+group by Product_line 
+order by Product_line
+-- total of revenue for whole year 
+select 
+sum (Total) as total_revenue 
+from `rugged-courier-418011.supermarket.sales_data` 
+-- total of revenue per each month 
+select 
+extract(month from Date) as month,
+sum(Total) as total_revenue
+from `rugged-courier-418011.supermarket.sales_data` 
+group by month 
+order by total_revenue desc 
+-- the number of sales above 35 from the bigining and end of each month 
+select 
+extract(day from Date) as day,
+count(*) as num_of_sales 
+from `rugged-courier-418011.supermarket.sales_data` 
+group by day
+having count(*) > 35
+order by num_of_sales desc 
